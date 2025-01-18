@@ -7,8 +7,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import Storage from './pages/Storage'
-// import Verfiy from './pages/Verify'
-import Verify from './pages/Verify'
+
 
 function App() {
   useEffect(() => {
@@ -24,7 +23,7 @@ function App() {
           <Route path='/register' element={<Register />} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/storage' element={<Storage />} />
-          <Route path='/verify' element={<Verify />} />
+          
         </Routes>
       </Layout>
     </BrowserRouter>
