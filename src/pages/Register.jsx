@@ -26,20 +26,10 @@ export default function Register() {
     setLoading(true);
     setErrorMessage('');
     try {
-      // First, attempt to create the user
       const user = await account.create(ID.unique(), email, password, name);
-
-      // Check if the user already has an active session
-      const currentSession = await account.getSession();
-
-      // If no session exists, create a new one
-      if (!currentSession) {
-        await account.createEmailPasswordSession(email, password);
-      }
-
-      // Send a verification email
+      const seesion = await account.createEmailPasswordSession(email,password)
       const link = await account.createVerification("https://your-app.vercel.app/verify");
-
+      
       // Clear fields on successful registration
       setEmail('');
       setName('');
