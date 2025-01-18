@@ -26,7 +26,7 @@ export default function Register() {
     try {
       const user = await account.create(ID.unique(), email, password, name);
       // const session =  await account.createEmailPasswordSession(email,password)
-      const link = await account.createVerification("http://localhost:5173/verify")
+      const link = await account.createVerification("https://your-app.vercel.app/verify")
     } catch (e) {
       console.error('Error during registration:', e.message);
     }
