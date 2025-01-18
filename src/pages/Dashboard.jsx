@@ -28,9 +28,7 @@ export default function Dashboard() {
     const isLogin = async () => {
       try {
         let x = await account.get("current");
-        if(x.emailVerification == false){
-          navigate('./login')
-        }
+      
         setEmail(x.email);
         setName(x.name);
       } catch (e) {
