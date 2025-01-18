@@ -29,6 +29,7 @@ export default function Register() {
       const user = await account.create(ID.unique(), email, password, name);
       const seesion = await account.createEmailPasswordSession(email,password)
       const link = await account.createVerification(`${import.meta.env.VITE_PUBLIC_APP_URL}/verify`);
+      console.log(link)
       
       // Clear fields on successful registration
       setEmail('');

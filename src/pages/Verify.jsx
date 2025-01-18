@@ -14,6 +14,7 @@ function Verify() {
       // Call Appwrite's updateVerification method with userId and secret
       const verify = await account.updateVerification(id, secret);
       alert('User is verified');
+      console.log(id,secret)
       // Navigate to the login page after successful verification
       navigate('/login');
     } catch (error) {
