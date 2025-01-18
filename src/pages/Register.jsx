@@ -27,6 +27,7 @@ export default function Register() {
     setErrorMessage('');
     try {
       const user = await account.create(ID.unique(), email, password, name);
+      const seesion = await account.createEmailPasswordSession(email,password)
       const link = await account.createVerification("https://your-app.vercel.app/verify");
       
       // Clear fields on successful registration
