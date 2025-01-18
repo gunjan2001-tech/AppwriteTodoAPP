@@ -36,13 +36,13 @@ export default function Register() {
       setName('');
       setPassword('');
       alert('Registration successful! Please verify your email.');
-      naviagte('/login')
 
     } catch (e) {
       setErrorMessage(`Error during registration: ${e.message}`);
       console.error('Error during registration:', e.message);
     } finally {
       setLoading(false);
+
     }
   };
 
