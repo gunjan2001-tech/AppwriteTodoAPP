@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { account } from '../appwrite/config';
 import { ID } from 'appwrite';
 
@@ -8,6 +8,21 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  // Check if there's an active session when the component mounts
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        await account.get(); // Check for an active session
+        alert('You are already logged in.');
+        // Optionally, redirect to the homepage or logout
+      } catch (error) {
+        console.log('No active session.');
+      }
+    };
+
+    checkSession();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,11 +41,15 @@ export default function Register() {
     setLoading(true);
     setErrorMessage('');
     try {
+      // First, check if a session is already active, and log out if it is
+      await account.deleteSession('current'); // Log out current session if exists
+
+      // Create the user account
       const user = await account.create(ID.unique(), email, password, name);
-      const seesion = await account.createEmailPasswordSession(email,password)
+      const session = await account.createEmailPasswordSession(email, password); // Create session
       const link = await account.createVerification(`${import.meta.env.VITE_PUBLIC_APP_URL}/verify`);
-      console.log(link)
-      
+      console.log('Verification link:', link);
+
       // Clear fields on successful registration
       setEmail('');
       setName('');
