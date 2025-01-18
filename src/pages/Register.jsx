@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { account } from '../appwrite/config';
 import { ID } from 'appwrite';
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -10,6 +11,7 @@ export default function Register() {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = (e) => {
+    const navigate = useNavigate()
     e.preventDefault();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -34,6 +36,7 @@ export default function Register() {
       setName('');
       setPassword('');
       alert('Registration successful! Please verify your email.');
+      naviagte('/login')
 
     } catch (e) {
       setErrorMessage(`Error during registration: ${e.message}`);
