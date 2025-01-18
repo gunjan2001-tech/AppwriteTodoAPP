@@ -6,10 +6,13 @@ export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (name === '' || email === '' || password === '') {
       alert('Fields cannot be empty');
     } else if (!emailRegex.test(email)) {
@@ -17,18 +20,26 @@ export default function Register() {
     } else {
       register();
     }
-    setEmail('')
-    setName('')
-    setPassword('')
   };
 
   const register = async () => {
+    setLoading(true);
+    setErrorMessage('');
     try {
       const user = await account.create(ID.unique(), email, password, name);
-      // const session =  await account.createEmailPasswordSession(email,password)
-      const link = await account.createVerification("https://your-app.vercel.app/verify")
+      const link = await account.createVerification("https://your-app.vercel.app/verify");
+      
+      // Clear fields on successful registration
+      setEmail('');
+      setName('');
+      setPassword('');
+      alert('Registration successful! Please verify your email.');
+
     } catch (e) {
+      setErrorMessage(`Error during registration: ${e.message}`);
       console.error('Error during registration:', e.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -80,11 +91,16 @@ export default function Register() {
               />
             </div>
           </div>
+          
+          {/* Display error message if any */}
+          {errorMessage && <p className="text-red-500 text-xs italic">{errorMessage}</p>}
+
           <button
             type="submit"
-            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white ${loading ? 'bg-gray-400' : 'bg-indigo-600 hover:bg-indigo-700'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+            disabled={loading}
           >
-            Register
+            {loading ? 'Registering...' : 'Register'}
           </button>
         </form>
       </div>
