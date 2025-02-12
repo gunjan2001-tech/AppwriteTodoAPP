@@ -1,5 +1,6 @@
 import React from "react";
 
+
 function Home() {
   return (
     <>
@@ -26,7 +27,7 @@ function Home() {
             <div className="lg:w-1/2 flex justify-center">
               <img
                 className="w-full max-w-md lg:max-w-lg"
-                src="https://source.unsplash.com/500x500/?notebook,task"
+                src="coworking-concept-illustration.png"
                 alt="Todo Illustration"
               />
             </div>

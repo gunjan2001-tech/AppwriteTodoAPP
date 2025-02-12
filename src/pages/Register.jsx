@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { account } from '../appwrite/config';
 import { ID } from 'appwrite';
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -8,6 +9,7 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,7 +35,8 @@ export default function Register() {
       setEmail('');
       setName('');
       setPassword('');
-      alert('Registration successful! Please verify your email.');
+      // alert('Registration successful! Please verify your email.');
+      navigate('/login')
 
     } catch (e) {
       setErrorMessage(`Error during registration: ${e.message}`);
